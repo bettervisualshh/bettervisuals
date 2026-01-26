@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt - Better Visuals</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        
+        :root {
+            --bg: #ffffff; --text: #000000; --border: #000000;
+            --input-bg: #e8e8e8;
+            --button-bg: #a0a0a0;
+            --button-text: #000000;
+        }
+        
+        [data-theme="dark"] {
+            --bg: #000000;
+            --text: #ffffff;
+            --border: #ffffff;
+            --input-bg: #1a1a1a;
+            --button-bg: #404040;
+            --button-text: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            font-size: 150%;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 1.25rem;
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: none;
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 100;
+            padding: 0;
+        }
+        
+        .theme-toggle svg {
+            width: 1rem;
+            height: 1rem;
+        }
+        
+        .theme-toggle:hover {
+            opacity: 0.6;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 0;
+            padding: 1.25rem 0;
+            margin-bottom: 1.5rem;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-size: 1rem;
+            font-weight: 400;
+            transition: all 0.3s;
+            width: 6rem;
+            text-align: center;
+        }
+        
+        nav a:hover {
+            opacity: 0.6;
+        }
+        
+        nav a.active {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        
+        .content-box {
+            padding: 1.5rem;
+            background: var(--bg);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeInUp 0.4s ease forwards;
+            animation-delay: 0.05s;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 600px) {
+            html {
+                font-size: 130%;
+            }
+            
+            .container {
+                padding: 0 1.5rem;
+            }
+            
+            nav {
+                gap: 0;
+                padding: 1.5rem 0;
+            }
+            
+            nav a {
+                width: 5rem;
+            }
+            
+            .content-box {
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .content-box form {
+                width: 100%;
+            }
+            
+            .theme-toggle {
+                top: 0.75rem;
+                right: 0.75rem;
+                width: 1rem;
+                height: 1rem;
+            }
+            
+            .theme-toggle svg {
+                width: 0.75rem;
+                height: 0.75rem;
+            }
+        }
+        
+        .contact-info {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .contact-info a {
+            color: var(--text);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            font-size: 0.85rem;
+        }
+        
+        .contact-info a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--text);
+            transition: width 0.3s ease;
+        }
+        
+        .contact-info a:hover::after {
+            width: 100%;
+        }
+        
+        .contact-subtitle {
+            font-size: 0.9rem;
+            margin: 1rem 0;
+            text-align: center;
+            color: var(--text);
+        }
+        
+        .form-group {
+            margin-bottom: 0.6rem;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: none;
+            background: var(--input-bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.7rem;
+            transition: background-color 0.3s;
+        }
+        
+        input::placeholder,
+        textarea::placeholder {
+            color: var(--text);
+            opacity: 0.5;
+            font-size: 0.7rem;
+        }
+        
+        textarea {
+            min-height: 10rem;
+            resize: vertical;
+        }
+        
+        .send-btn {
+            display: block;
+            margin: 0.75rem auto 0;
+            padding: 0.5rem 2.5rem;
+            border: none;
+            border-radius: 1.25rem;
+            background: var(--button-bg);
+            color: var(--button-text);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .send-btn:hover {
+            opacity: 0.7;
+        }
+        
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .status-message {
+            text-align: center;
+            margin-top: 0.75rem;
+            font-size: 0.875rem;
+        }
+        
+        .status-message.success {
+            color: #4CAF50;
+        }
+        
+        .status-message.error {
+            color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="display: none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+    
+    <div class="container">
+        <nav>
+            <a href="kontakt.html" class="active">Kontakt</a>
+            <a href="index.html">Work</a>
+            <a href="team.html">Team</a>
+        </nav>
+        
+        <div class="content-box">
+            <div class="contact-info">
+                <a href="mailto:bettervisualshh@gmail.com">bettervisualshh@gmail.com</a>
+                <a href="tel:+491701181201">0 170 1181 201</a>
+            </div>
+            
+            <h2 class="contact-subtitle">or contact us directly to talk</h2>
+            
+            <form id="contact-form">
+                <div class="form-group">
+                    <input type="text" id="contact" name="contact" placeholder="email or phone number" required>
+                </div>
+                <div class="form-group">
+                    <textarea id="idea" name="idea" placeholder="your idea..."></textarea>
+                </div>
+                <button type="submit" class="send-btn">Send</button>
+            </form>
+            
+            <div id="status" class="status-message"></div>
+        </div>
+    </div>
+    
+    <script>
+        const DISCORD_WEBHOOK_URL = 'YOUR_DISCORD_WEBHOOK_URL_HERE';
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        }
+        
+        function updateThemeIcon(theme) {
+            const sunIcon = document.getElementById('sun-icon');
+            const moonIcon = document.getElementById('moon-icon');
+            if (theme === 'dark') {
+                sunIcon.style.display = 'none';
+                moonIcon.style.display = 'block';
+            } else {
+                sunIcon.style.display = 'block';
+                moonIcon.style.display = 'none';
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+        updateThemeIcon(savedTheme);
+
+        document.getElementById('contact-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const contact = document.getElementById('contact').value;
+            const idea = document.getElementById('idea').value;
+            const submitBtn = document.querySelector('.send-btn');
+            const status = document.getElementById('status');
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            
+            const payload = {
+                embeds: [{
+                    title: '📬 New Contact Form Submission',
+                    color: 0x000000,
+                    fields: [
+                        {
+                            name: 'Contact',
+                            value: contact,
+                            inline: false
+                        },
+                        {
+                            name: 'Message',
+                            value: idea || 'No message provided',
+                            inline: false
+                        }
+                    ],
+                    timestamp: new Date().toISOString()
+                }]
+            };
+            
+            try {
+                const response = await fetch(DISCORD_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (response.ok || response.status === 204) {
+                    status.textContent = 'Message sent successfully!';
+                    status.className = 'status-message success';
+                    document.getElementById('contact-form').reset();
+                } else {
+                    throw new Error('Failed to send');
+                }
+            } catch (error) {
+                status.textContent = 'Failed to send message. Please try again.';
+                status.className = 'status-message error';
+            }
+            
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send';
+        });
+    </script>
+</body>
+</html>
