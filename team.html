@@ -5,13 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team - Better Visuals</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        @font-face {
+            font-family: 'CreatoDisplay';
+            src: url('fonts/CreatoDisplay-ExtraBold.otf') format('opentype'),
+                 url('fonts/CreatoDisplay-ExtraBold.ttf') format('truetype'),
+                 url('fonts/CreatoDisplay-ExtraBold.woff2') format('woff2'),
+                 url('fonts/CreatoDisplay-ExtraBold.woff') format('woff');
+            font-weight: 800;
+            font-style: normal;
+        }
         
         :root {
             --bg: #ffffff;
             --text: #000000;
             --border: #000000;
-            --card-bg: #f0f0f0;
+            --card-bg: #e8e8e8;
+            --accent: #ff3366;
         }
         
         [data-theme="dark"] {
@@ -19,6 +28,7 @@
             --text: #ffffff;
             --border: #ffffff;
             --card-bg: #1a1a1a;
+            --accent: #ff6699;
         }
         
         * {
@@ -32,7 +42,7 @@
         }
         
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'CreatoDisplay', sans-serif;
             background-color: var(--bg);
             color: var(--text);
             min-height: 100vh;
@@ -151,6 +161,10 @@
             .member-bio {
                 font-size: 0.75rem;
             }
+            
+            .skills {
+                justify-content: center;
+            }
         }
         
         .section-title {
@@ -176,7 +190,7 @@
             gap: 1.5rem;
             padding: 2rem;
             background: var(--card-bg);
-            border-radius: 0.5rem;
+            border-radius: 0;
             transition: background-color 0.3s;
             opacity: 0;
             transform: translateY(15px);
@@ -201,12 +215,13 @@
             min-width: 7rem;
             background: var(--bg);
             border: 2px solid var(--border);
-            border-radius: 0.75rem;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 0.625rem;
             opacity: 0.5;
+            overflow: hidden;
         }
         
         .member-info {
@@ -214,9 +229,41 @@
         }
         
         .member-name {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .skill-tag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            cursor: pointer;
+            position: relative;
+            display: inline-block;
+            text-decoration: none;
+            color: var(--text);
+        }
+        
+        .skill-tag::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--text);
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .skill-tag:hover::after {
+            width: 100%;
         }
         
         .member-bio {
@@ -247,7 +294,7 @@
     
     <div class="container">
         <nav>
-            <a href="kontakt.html">Kontakt</a>
+            <a href="contact.html">Contact</a>
             <a href="index.html">Work</a>
             <a href="team.html" class="active">Team</a>
         </nav>
@@ -257,10 +304,16 @@
                 <div class="avatar">Photo</div>
                 <div class="member-info">
                     <h3 class="member-name">Felix Riße</h3>
+                    <div class="skills">
+                        <a href="team/FelixRiße/work.html#showreel" class="skill-tag">Management</a>
+                        <a href="team/FelixRiße/work.html#showreel" class="skill-tag">Direction</a>
+                        <a href="team/FelixRiße/work.html#showreel" class="skill-tag">Camera</a>
+                        <a href="team/FelixRiße/work.html#showreel" class="skill-tag">Editing</a>
+                        <a href="team/FelixRiße/work.html#threed" class="skill-tag">3D</a>
+                        <a href="team/FelixRiße/work.html#graphics" class="skill-tag">Graphics</a>
+                    </div>
                     <p class="member-bio">
-                        felix.riße@bettervisuals.online <br>
-                        +1 234 56789 <br>
-                        Design + 3D Graphics
+                        Kreative Köpfe brauchen kreative Lösungen. Mit einem Auge für Details und einer Leidenschaft für visuelle Exzellenz.
                     </p>
                 </div>
             </div>
@@ -268,11 +321,13 @@
             <div class="team-card">
                 <div class="avatar">Photo</div>
                 <div class="member-info">
-                    <h3 class="member-name">max mustermann</h3>
+                    <h3 class="member-name">Max Mustermann1</h3>
+                    <div class="skills">
+                        <a href="team/MaxMustermann1/work.html#website" class="skill-tag">Development</a>
+                        <a href="team/MaxMustermann1/work.html#website" class="skill-tag">Backend</a>
+                    </div>
                     <p class="member-bio">
-                        aspdojaspod jaüspdojaü spodjaü spodjaü
-                        aosdhaskIdjh asodijhals djhalskjdhals
-                        asoid hapsoidhjapsoidjah psoidhaps
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.
                     </p>
                 </div>
             </div>
@@ -280,11 +335,13 @@
             <div class="team-card">
                 <div class="avatar">Photo</div>
                 <div class="member-info">
-                    <h3 class="member-name">max mustermann</h3>
+                    <h3 class="member-name">Max Mustermann2</h3>
+                    <div class="skills">
+                        <a href="team/MaxMustermann2/work.html#graphics" class="skill-tag">UI/UX</a>
+                        <a href="team/MaxMustermann2/work.html#graphics" class="skill-tag">Branding</a>
+                    </div>
                     <p class="member-bio">
-                        aspdojaspod jaüspdojaü spodjaü spodjaü
-                        aosdhaskIdjh asodijhals djhalskjdhals
-                        asoid hapsoidhjapsoidjah psoidhaps
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.
                     </p>
                 </div>
             </div>
@@ -292,11 +349,13 @@
             <div class="team-card">
                 <div class="avatar">Photo</div>
                 <div class="member-info">
-                    <h3 class="member-name">max mustermann</h3>
+                    <h3 class="member-name">Max Mustermann3</h3>
+                    <div class="skills">
+                        <a href="team/MaxMustermann3/work.html#showreel" class="skill-tag">Animation</a>
+                        <a href="team/MaxMustermann3/work.html#showreel" class="skill-tag">Video</a>
+                    </div>
                     <p class="member-bio">
-                        aspdojaspod jaüspdojaü spodjaü spodjaü
-                        aosdhaskIdjh asodijhals djhalskjdhals
-                        asoid hapsoidhjapsoidjah psoidhaps
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.
                     </p>
                 </div>
             </div>

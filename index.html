@@ -5,12 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Work - Better Visuals</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
         
         :root {
             --bg: #ffffff;
             --text: #000000;
             --border: #000000;
+            
+            /* ===== SLIDER GRÖSSEN-PARAMETER (DESKTOP) ===== */
+            /* Ändere diese Werte um alle Slider gleichzeitig anzupassen */
+            --slider-max-width: calc(100% - 7.5rem);  /* Breite des Slider-Inhalts */
+            --slider-nav-width: 3rem;                  /* Breite der Pfeile */
+            --slider-nav-height: 4.5rem;               /* Höhe der Pfeile */
+            --slider-gap: 0.75rem;                     /* Abstand zwischen Pfeilen und Slider */
+            --slider-padding: 0.75rem;                 /* Außenabstand der Slider-Section */
         }
         
         [data-theme="dark"] {
@@ -30,7 +38,7 @@
         }
         
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
             background-color: var(--bg);
             color: var(--text);
             min-height: 100vh;
@@ -105,13 +113,23 @@
             }
         }
 
+        /* ===== MOBILE ANSICHT ===== */
         @media (max-width: 600px) {
+            :root {
+                /* ===== SLIDER GRÖSSEN-PARAMETER (MOBILE) ===== */
+                --slider-max-width: 100%;              /* Volle Breite auf Mobile */
+                --slider-nav-width: 2.13rem;              /* Kleinere Pfeile */
+                --slider-nav-height: 3rem;
+                --slider-gap: 0;                       /* Kein Abstand */
+                --slider-padding: 0;                   /* Kein Außenabstand */
+            }
+            
             html {
                 font-size: 130%;
             }
             
             .container {
-                padding: 0 0.5rem;
+                padding: 0;
             }
             
             nav {
@@ -135,26 +153,18 @@
                 height: 0.75rem;
             }
             
-            .slider-wrapper {
-                gap: 0.25rem;
-            }
-            
-            .slider-nav {
-                width: 0.5rem;
-                height: 0.5rem;
-            }
-            
-            .slider-nav svg {
-                width: 0.4rem;
-                height: 0.4rem;
-            }
-            
             .slider-section {
                 margin-top: 0.75rem;
                 margin-bottom: 1rem;
             }
             
-            .graphics-section {
+            .slider-nav svg {
+                width: 0.75rem;
+                height: 0.75rem;
+            }
+            
+            .graphics-section,
+            .photographics-section {
                 padding: 0;
             }
             
@@ -162,22 +172,26 @@
                 padding-left: 0.5rem;
             }
             
-            .graphics-wrapper {
+            .graphics-wrapper,
+            .photographics-wrapper {
                 flex-direction: column;
                 width: 100%;
             }
             
-            .graphics-preview {
+            .graphics-preview,
+            .photographics-preview {
                 width: 100% !important;
                 aspect-ratio: 1;
             }
             
-            .graphics-grid {
+            .graphics-grid,
+            .photographics-grid {
                 width: 100% !important;
                 grid-template-columns: repeat(7, 1fr);
             }
             
-            .graphic-item {
+            .graphic-item,
+            .photographics-item {
                 font-size: 0.5rem;
             }
             
@@ -211,42 +225,38 @@
             .website-section .section-title {
                 padding-left: 0.5rem;
             }
-            
-            .website-section .slider-wrapper {
-                gap: 0.25rem;
-            }
 
             .sound-section {
                 margin-top: 1rem;
             }
             
             .sound-section .section-title {
-                padding-left: 0.5rem;
-            }
-            
-            .sound-section .slider-wrapper {
-                gap: 0.25rem;
+                padding-left: 45px;
             }
         }
 
+        /* ===== SLIDER STYLES (nutzt die Variablen) ===== */
         .slider-section {
             margin-bottom: 2.5rem;
             opacity: 0;
             transform: translateY(15px);
             animation: fadeInUp 0.4s ease forwards;
             animation-delay: 0.05s;
+            padding: 0 var(--slider-padding);
         }
         
         .slider-wrapper {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.75rem;
+            gap: var(--slider-gap);
         }
         
         .slider-container {
             flex: 1;
             overflow: hidden;
+            max-width: var(--slider-max-width);
+            margin: 0 auto;
         }
         
         .slider {
@@ -280,10 +290,11 @@
         }
         
         .slider-nav {
-            width: 1.5rem;
-            height: 1.5rem;
+            width: var(--slider-nav-width);
+            min-width: var(--slider-nav-width);
+            height: var(--slider-nav-height);
             border: none;
-            background: transparent;
+            background: var(--bg);
             color: var(--text);
             cursor: pointer;
             display: flex;
@@ -295,12 +306,15 @@
         }
         
         .slider-nav:hover {
-            opacity: 0.5;
+            opacity: 0.6;
         }
         
         .slider-nav svg {
             width: 1.25rem;
             height: 1.25rem;
+            stroke: var(--text);
+            stroke-width: 2.5;
+            fill: none;
         }
         
         .slider-nav.prev svg {
@@ -401,7 +415,6 @@
             transform: translateY(15px);
             animation: fadeInUp 0.4s ease forwards;
             animation-delay: 0.15s;
-            padding-bottom: 2rem;
         }
         
         .threed-wrapper {
@@ -476,8 +489,9 @@
             z-index: 10;
         }
 
-        .website-section {
-            padding: 0;
+        /* Photographics Section */
+        .photographics-section {
+            padding: 0 2.25rem;
             margin-top: 2.5rem;
             opacity: 0;
             transform: translateY(15px);
@@ -485,8 +499,89 @@
             animation-delay: 0.2s;
         }
         
+        .photographics-wrapper {
+            display: flex;
+            gap: 0;
+            align-items: start;
+        }
+        
+        .photographics-preview {
+            aspect-ratio: 1;
+            background: var(--border);
+            opacity: 0.3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            color: var(--bg);
+            transition: opacity 0.3s;
+            width: 50%;
+        }
+        
+        .photographics-preview.has-image {
+            opacity: 1;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .photographics-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            width: 50%;
+        }
+        
+        .photographics-item {
+            aspect-ratio: 1;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: var(--bg);
+            cursor: pointer;
+            transition: background-color 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.35rem;
+            color: var(--text);
+            opacity: 0.6;
+        }
+        
+        .photographics-grid .photographics-item:nth-child(7n) {
+            border-right: none;
+        }
+        
+        .photographics-grid .photographics-item:nth-child(n+43) {
+            border-bottom: none;
+        }
+        
+        .photographics-item:hover {
+            background: rgba(128, 128, 128, 0.2);
+        }
+        
+        [data-theme="dark"] .photographics-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .photographics-item.has-image {
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .photographics-item.has-image:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+
+        .website-section {
+            padding: 0 var(--slider-padding);
+            margin-top: 2.5rem;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeInUp 0.4s ease forwards;
+            animation-delay: 0.25s;
+        }
+        
         .website-section .section-title {
-            padding-left: 2.25rem;
+            padding-left: 0;
         }
         
         .website-section .slide-image {
@@ -502,17 +597,17 @@
         }
 
         .sound-section {
-            padding: 0;
+            padding: 0 var(--slider-padding);
             margin-top: 2.5rem;
             padding-bottom: 2rem;
             opacity: 0;
             transform: translateY(15px);
             animation: fadeInUp 0.4s ease forwards;
-            animation-delay: 0.25s;
+            animation-delay: 0.3s;
         }
         
         .sound-section .section-title {
-            padding-left: 2.25rem;
+            padding-left: 0;
         }
         
         .sound-section .slide-image {
@@ -549,7 +644,7 @@
     
     <div class="container">
         <nav>
-            <a href="kontakt.html">Kontakt</a>
+            <a href="contact.html">Contact</a>
             <a href="index.html" class="active">Work</a>
             <a href="team.html">Team</a>
         </nav>
@@ -557,8 +652,8 @@
         <div class="slider-section">
             <div class="slider-wrapper">
                 <button class="slider-nav prev" onclick="prevSlide()" aria-label="Previous">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M9.29 6.71a1 1 0 0 0 0 1.41L13.17 12l-3.88 3.88a1 1 0 1 0 1.42 1.41l4.59-4.59a1 1 0 0 0 0-1.41L10.71 6.7a1 1 0 0 0-1.42 0Z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <polyline points="9,6 15,12 9,18" stroke-linecap="square" stroke-linejoin="miter"/>
                     </svg>
                 </button>
                 
@@ -582,8 +677,8 @@
                 </div>
                 
                 <button class="slider-nav next" onclick="nextSlide()" aria-label="Next">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M9.29 6.71a1 1 0 0 0 0 1.41L13.17 12l-3.88 3.88a1 1 0 1 0 1.42 1.41l4.59-4.59a1 1 0 0 0 0-1.41L10.71 6.7a1 1 0 0 0-1.42 0Z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <polyline points="9,6 15,12 9,18" stroke-linecap="square" stroke-linejoin="miter"/>
                     </svg>
                 </button>
             </div>
@@ -605,12 +700,20 @@
             </div>
         </section>
 
+        <section class="photographics-section">
+            <h2 class="section-title">Photographics</h2>
+            <div class="photographics-wrapper">
+                <div class="photographics-preview" id="photographics-preview">Preview</div>
+                <div class="photographics-grid" id="photographics-grid"></div>
+            </div>
+        </section>
+
         <section class="website-section">
             <h2 class="section-title">Website</h2>
             <div class="slider-wrapper">
                 <button class="slider-nav prev" onclick="prevWebsiteSlide()" aria-label="Previous">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M9.29 6.71a1 1 0 0 0 0 1.41L13.17 12l-3.88 3.88a1 1 0 1 0 1.42 1.41l4.59-4.59a1 1 0 0 0 0-1.41L10.71 6.7a1 1 0 0 0-1.42 0Z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <polyline points="9,6 15,12 9,18" stroke-linecap="square" stroke-linejoin="miter"/>
                     </svg>
                 </button>
                 
@@ -632,8 +735,8 @@
                 </div>
                 
                 <button class="slider-nav next" onclick="nextWebsiteSlide()" aria-label="Next">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M9.29 6.71a1 1 0 0 0 0 1.41L13.17 12l-3.88 3.88a1 1 0 1 0 1.42 1.41l4.59-4.59a1 1 0 0 0 0-1.41L10.71 6.7a1 1 0 0 0-1.42 0Z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <polyline points="9,6 15,12 9,18" stroke-linecap="square" stroke-linejoin="miter"/>
                     </svg>
                 </button>
             </div>
@@ -643,8 +746,8 @@
             <h2 class="section-title">Sound-design</h2>
             <div class="slider-wrapper">
                 <button class="slider-nav prev" onclick="prevSoundSlide()" aria-label="Previous">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M9.29 6.71a1 1 0 0 0 0 1.41L13.17 12l-3.88 3.88a1 1 0 1 0 1.42 1.41l4.59-4.59a1 1 0 0 0 0-1.41L10.71 6.7a1 1 0 0 0-1.42 0Z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <polyline points="9,6 15,12 9,18" stroke-linecap="square" stroke-linejoin="miter"/>
                     </svg>
                 </button>
                 
@@ -666,8 +769,8 @@
                 </div>
                 
                 <button class="slider-nav next" onclick="nextSoundSlide()" aria-label="Next">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M9.29 6.71a1 1 0 0 0 0 1.41L13.17 12l-3.88 3.88a1 1 0 1 0 1.42 1.41l4.59-4.59a1 1 0 0 0 0-1.41L10.71 6.7a1 1 0 0 0-1.42 0Z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <polyline points="9,6 15,12 9,18" stroke-linecap="square" stroke-linejoin="miter"/>
                     </svg>
                 </button>
             </div>
@@ -721,6 +824,7 @@
             updateSlider();
         }
 
+        // Graphics Grid
         const graphicsGrid = document.getElementById('graphics-grid');
         const graphicsPreview = document.getElementById('graphics-preview');
         
@@ -741,6 +845,7 @@
             graphicsGrid.appendChild(item);
         }
 
+        // 3D Grid
         const threedGrid = document.getElementById('threed-grid');
         const threedPreview = document.getElementById('threed-preview');
         
@@ -761,6 +866,28 @@
             threedGrid.appendChild(item);
         }
 
+        // Photographics Grid
+        const photographicsGrid = document.getElementById('photographics-grid');
+        const photographicsPreview = document.getElementById('photographics-preview');
+        
+        for (let i = 0; i < 49; i++) {
+            const item = document.createElement('div');
+            item.className = 'photographics-item';
+            item.dataset.index = i;
+            item.textContent = (i + 1);
+
+            item.addEventListener('mouseenter', function() {
+                photographicsPreview.textContent = 'Photo ' + (i + 1);
+            });
+
+            item.addEventListener('click', function() {
+                photographicsPreview.textContent = 'Photo ' + (i + 1);
+            });
+            
+            photographicsGrid.appendChild(item);
+        }
+
+        // Website Slider
         let currentWebsiteSlide = 0;
         const websiteSlider = document.getElementById('website-slider');
         const websiteSlides = websiteSlider.querySelectorAll('.slide');
@@ -780,6 +907,7 @@
             updateWebsiteSlider();
         }
 
+        // Sound Slider
         let currentSoundSlide = 0;
         const soundSlider = document.getElementById('sound-slider');
         const soundSlides = soundSlider.querySelectorAll('.slide');

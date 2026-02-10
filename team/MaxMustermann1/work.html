@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Max Mustermann1 - Better Visuals</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+        
+        :root {
+            --bg: #ffffff;
+            --text: #000000;
+            --border: #000000;
+            --slider-max-width: calc(100% - 7.5rem);
+            --slider-nav-width: 3rem;
+            --slider-nav-height: 4.5rem;
+            --slider-gap: 0.75rem;
+            --slider-padding: 0.75rem;
+        }
+        
+        [data-theme="dark"] {
+            --bg: #000000;
+            --text: #ffffff;
+            --border: #ffffff;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 150%; }
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .container { max-width: 1450px; margin: 0 auto; padding: 0 1.5rem; }
+        
+        .theme-toggle {
+            position: fixed; top: 1rem; right: 1rem;
+            width: 1.25rem; height: 1.25rem;
+            border: none; background: transparent; color: var(--text);
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s; z-index: 100; padding: 0;
+        }
+        .theme-toggle svg { width: 1rem; height: 1rem; }
+        .theme-toggle:hover { opacity: 0.6; }
+        
+        nav {
+            display: flex; align-items: center;
+            padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; gap: 1rem;
+        }
+        nav .back-btn {
+            text-decoration: none; color: var(--text); display: flex;
+            align-items: center; transition: opacity 0.3s; flex-shrink: 0;
+        }
+        nav .back-btn:hover { opacity: 0.6; }
+        nav .back-btn svg { width: 1.25rem; height: 1.25rem; stroke: var(--text); stroke-width: 2.5; fill: none; }
+        nav .person-name {
+            font-size: 1.1rem; font-weight: 700;
+        }
+        
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 600px) {
+            :root {
+                --slider-max-width: 100%;
+                --slider-nav-width: 2.13rem;
+                --slider-nav-height: 3rem;
+                --slider-gap: 0;
+                --slider-padding: 0;
+            }
+            html { font-size: 130%; }
+            .container { padding: 0; }
+            nav { gap: 0.75rem; padding: 1.5rem 0.75rem; }
+            nav .back-btn svg { width: 1rem; height: 1rem; }
+            .theme-toggle { top: 0.75rem; right: 0.75rem; width: 1rem; height: 1rem; }
+            .theme-toggle svg { width: 0.75rem; height: 0.75rem; }
+            .website-section { margin-top: 1rem; }
+            .website-section .section-title { padding-left: 0.5rem; }
+            .slider-nav svg { width: 0.75rem; height: 0.75rem; }
+        }
+
+        /* Slider shared styles */
+        .slider-wrapper { display: flex; align-items: center; justify-content: center; gap: var(--slider-gap); }
+        .slider-container { flex: 1; overflow: hidden; max-width: var(--slider-max-width); margin: 0 auto; }
+        .slider { display: flex; transition: transform 0.5s ease; }
+        .slide { min-width: 100%; display: flex; justify-content: center; align-items: center; }
+        .slide-image {
+            width: 100%; aspect-ratio: 16/9; background: var(--border); opacity: 0.3;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.875rem; color: var(--bg);
+        }
+        .slider-nav {
+            width: var(--slider-nav-width); min-width: var(--slider-nav-width);
+            height: var(--slider-nav-height); border: none; background: var(--bg);
+            color: var(--text); cursor: pointer; display: flex; align-items: center;
+            justify-content: center; transition: all 0.3s; padding: 0; flex-shrink: 0;
+        }
+        .slider-nav:hover { opacity: 0.6; }
+        .slider-nav svg { width: 1.25rem; height: 1.25rem; stroke: var(--text); stroke-width: 2.5; fill: none; }
+        .slider-nav.prev svg { transform: rotate(180deg); }
+
+        .section-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.25rem; display: inline-block; }
+
+        .website-section {
+            padding: 0 var(--slider-padding); margin-top: 0; padding-bottom: 2rem;
+            opacity: 0; transform: translateY(15px);
+            animation: fadeInUp 0.4s ease forwards; animation-delay: 0.05s;
+        }
+        .website-section .section-title { padding-left: 0; }
+        .website-section .slide-image {
+            width: 100%; aspect-ratio: 16/9; background: var(--border); opacity: 0.3;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.875rem; color: var(--bg);
+        }
+    </style>
+</head>
+<body>
+    
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="display: none;">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+    
+    <div class="container">
+        <nav>
+            <a href="../../team.html" class="back-btn" aria-label="Zurück">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <polyline points="15,6 9,12 15,18" stroke-linecap="square" stroke-linejoin="miter"/>
+                </svg>
+            </a>
+            <span class="person-name">Max Mustermann1</span>
+        </nav>
+
+        <!-- WEBSITE -->
+        <section id="website" class="website-section">
+            <h2 class="section-title">Website</h2>
+            <div class="slider-wrapper">
+                <button class="slider-nav prev" onclick="prevWebsiteSlide()" aria-label="Previous">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <polyline points="9,6 15,12 9,18" stroke-linecap="square" stroke-linejoin="miter"/>
+                    </svg>
+                </button>
+                <div class="slider-container">
+                    <div class="slider" id="website-slider">
+                        <div class="slide"><div class="slide-image">Website 1</div></div>
+                        <div class="slide"><div class="slide-image">Website 2</div></div>
+                        <div class="slide"><div class="slide-image">Website 3</div></div>
+                        <div class="slide"><div class="slide-image">Website 4</div></div>
+                    </div>
+                </div>
+                <button class="slider-nav next" onclick="nextWebsiteSlide()" aria-label="Next">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <polyline points="9,6 15,12 9,18" stroke-linecap="square" stroke-linejoin="miter"/>
+                    </svg>
+                </button>
+            </div>
+        </section>
+    </div>
+    
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        }
+        function updateThemeIcon(theme) {
+            document.getElementById('sun-icon').style.display = theme === 'dark' ? 'none' : 'block';
+            document.getElementById('moon-icon').style.display = theme === 'dark' ? 'block' : 'none';
+        }
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+        updateThemeIcon(savedTheme);
+
+        // Website Slider
+        let currentWebsiteSlide = 0;
+        const websiteSlider = document.getElementById('website-slider');
+        const totalWebsiteSlides = websiteSlider.querySelectorAll('.slide').length;
+        function updateWebsiteSlider() { websiteSlider.style.transform = `translateX(-${currentWebsiteSlide * 100}%)`; }
+        function nextWebsiteSlide() { currentWebsiteSlide = (currentWebsiteSlide + 1) % totalWebsiteSlides; updateWebsiteSlider(); }
+        function prevWebsiteSlide() { currentWebsiteSlide = (currentWebsiteSlide - 1 + totalWebsiteSlides) % totalWebsiteSlides; updateWebsiteSlider(); }
+    </script>
+</body>
+</html>
