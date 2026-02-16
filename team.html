@@ -158,12 +158,8 @@
                 font-size: 1rem;
             }
             
-            .member-bio {
-                font-size: 0.75rem;
-            }
-            
             .skills {
-                justify-content: center;
+                font-size: 0.75rem;
             }
         }
         
@@ -214,7 +210,6 @@
             height: 7rem;
             min-width: 7rem;
             background: var(--bg);
-            border: 2px solid var(--border);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -235,41 +230,20 @@
         }
         
         .skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-        }
-        
-        .skill-tag {
-            font-size: 0.7rem;
-            font-weight: 700;
-            cursor: pointer;
-            position: relative;
-            display: inline-block;
-            text-decoration: none;
-            color: var(--text);
-        }
-        
-        .skill-tag::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--text);
-            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .skill-tag:hover::after {
-            width: 100%;
-        }
-        
-        .member-bio {
             font-size: 0.85rem;
+            font-weight: 400;
             line-height: 1.6;
             opacity: 0.8;
+        }
+        
+        .skills a {
+            color: var(--text);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        .skills a:hover {
+            opacity: 0.6;
         }
     </style>
 </head>
@@ -304,16 +278,8 @@
                 <div class="avatar">Photo</div>
                 <div class="member-info">
                     <h3 class="member-name">Felix Riße</h3>
-                    <div class="skills">
-                        <a href="team/FelixRiße/work.html#showreel" class="skill-tag">Management</a>
-                        <a href="team/FelixRiße/work.html#showreel" class="skill-tag">Direction</a>
-                        <a href="team/FelixRiße/work.html#showreel" class="skill-tag">Camera</a>
-                        <a href="team/FelixRiße/work.html#showreel" class="skill-tag">Editing</a>
-                        <a href="team/FelixRiße/work.html#threed" class="skill-tag">3D</a>
-                        <a href="team/FelixRiße/work.html#graphics" class="skill-tag">Graphics</a>
-                    </div>
-                    <p class="member-bio">
-                        Kreative Köpfe brauchen kreative Lösungen. Mit einem Auge für Details und einer Leidenschaft für visuelle Exzellenz.
+                    <p class="skills">
+                        <a href="team/FelixRiße/work.html#showreel">Management</a>, <a href="team/FelixRiße/work.html#showreel">Direction</a>, <a href="team/FelixRiße/work.html#showreel">Camera</a>, <a href="team/FelixRiße/work.html#showreel">Editing</a>, <a href="team/FelixRiße/work.html#threed">3D</a>, <a href="team/FelixRiße/work.html#graphics">Graphics</a>
                     </p>
                 </div>
             </div>
@@ -322,12 +288,8 @@
                 <div class="avatar">Photo</div>
                 <div class="member-info">
                     <h3 class="member-name">Max Mustermann1</h3>
-                    <div class="skills">
-                        <a href="team/MaxMustermann1/work.html#website" class="skill-tag">Development</a>
-                        <a href="team/MaxMustermann1/work.html#website" class="skill-tag">Backend</a>
-                    </div>
-                    <p class="member-bio">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.
+                    <p class="skills">
+                        <a href="team/MaxMustermann1/work.html#website">Development</a>, <a href="team/MaxMustermann1/work.html#website">Backend</a>
                     </p>
                 </div>
             </div>
@@ -336,12 +298,8 @@
                 <div class="avatar">Photo</div>
                 <div class="member-info">
                     <h3 class="member-name">Max Mustermann2</h3>
-                    <div class="skills">
-                        <a href="team/MaxMustermann2/work.html#graphics" class="skill-tag">UI/UX</a>
-                        <a href="team/MaxMustermann2/work.html#graphics" class="skill-tag">Branding</a>
-                    </div>
-                    <p class="member-bio">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.
+                    <p class="skills">
+                        <a href="team/MaxMustermann2/work.html#graphics">UI/UX</a>, <a href="team/MaxMustermann2/work.html#graphics">Branding</a>
                     </p>
                 </div>
             </div>
@@ -350,12 +308,8 @@
                 <div class="avatar">Photo</div>
                 <div class="member-info">
                     <h3 class="member-name">Max Mustermann3</h3>
-                    <div class="skills">
-                        <a href="team/MaxMustermann3/work.html#showreel" class="skill-tag">Animation</a>
-                        <a href="team/MaxMustermann3/work.html#showreel" class="skill-tag">Video</a>
-                    </div>
-                    <p class="member-bio">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod.
+                    <p class="skills">
+                        <a href="team/MaxMustermann3/work.html#showreel">Animation</a>, <a href="team/MaxMustermann3/work.html#showreel">Video</a>
                     </p>
                 </div>
             </div>

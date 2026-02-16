@@ -11,14 +11,11 @@
             --bg: #ffffff;
             --text: #000000;
             --border: #000000;
-            
-            /* ===== SLIDER GRÖSSEN-PARAMETER (DESKTOP) ===== */
-            /* Ändere diese Werte um alle Slider gleichzeitig anzupassen */
-            --slider-max-width: calc(100% - 7.5rem);  /* Breite des Slider-Inhalts */
-            --slider-nav-width: 3rem;                  /* Breite der Pfeile */
-            --slider-nav-height: 4.5rem;               /* Höhe der Pfeile */
-            --slider-gap: 0.75rem;                     /* Abstand zwischen Pfeilen und Slider */
-            --slider-padding: 0.75rem;                 /* Außenabstand der Slider-Section */
+            --slider-max-width: calc(100% - 7.5rem);
+            --slider-nav-width: 3rem;
+            --slider-nav-height: 4.5rem;
+            --slider-gap: 0.75rem;
+            --slider-padding: 0.75rem;
         }
         
         [data-theme="dark"] {
@@ -113,15 +110,13 @@
             }
         }
 
-        /* ===== MOBILE ANSICHT ===== */
         @media (max-width: 600px) {
             :root {
-                /* ===== SLIDER GRÖSSEN-PARAMETER (MOBILE) ===== */
-                --slider-max-width: 100%;              /* Volle Breite auf Mobile */
-                --slider-nav-width: 2.13rem;              /* Kleinere Pfeile */
+                --slider-max-width: 100%;
+                --slider-nav-width: 2.13rem;
                 --slider-nav-height: 3rem;
-                --slider-gap: 0;                       /* Kein Abstand */
-                --slider-padding: 0;                   /* Kein Außenabstand */
+                --slider-gap: 0;
+                --slider-padding: 0;
             }
             
             html {
@@ -221,21 +216,12 @@
             .website-section {
                 margin-top: 1rem;
             }
-            
-            .website-section .section-title {
-                padding-left: 0.5rem;
-            }
 
             .sound-section {
                 margin-top: 1rem;
             }
-            
-            .sound-section .section-title {
-                padding-left: 45px;
-            }
         }
 
-        /* ===== SLIDER STYLES (nutzt die Variablen) ===== */
         .slider-section {
             margin-bottom: 2.5rem;
             opacity: 0;
@@ -322,7 +308,7 @@
         }
 
         .graphics-section {
-            padding: 0 2.25rem;
+            padding: 0 calc(var(--slider-padding) + var(--slider-nav-width) + var(--slider-gap));
             opacity: 0;
             transform: translateY(15px);
             animation: fadeInUp 0.4s ease forwards;
@@ -409,7 +395,7 @@
         }
 
         .threed-section {
-            padding: 0 2.25rem;
+            padding: 0 calc(var(--slider-padding) + var(--slider-nav-width) + var(--slider-gap));
             margin-top: 2.5rem;
             opacity: 0;
             transform: translateY(15px);
@@ -489,9 +475,8 @@
             z-index: 10;
         }
 
-        /* Photographics Section */
         .photographics-section {
-            padding: 0 2.25rem;
+            padding: 0 calc(var(--slider-padding) + var(--slider-nav-width) + var(--slider-gap));
             margin-top: 2.5rem;
             opacity: 0;
             transform: translateY(15px);
@@ -581,7 +566,7 @@
         }
         
         .website-section .section-title {
-            padding-left: 0;
+            padding-left: 3.75rem;
         }
         
         .website-section .slide-image {
@@ -607,7 +592,7 @@
         }
         
         .sound-section .section-title {
-            padding-left: 0;
+            padding-left: 3.75rem;
         }
         
         .sound-section .slide-image {
@@ -620,6 +605,20 @@
             justify-content: center;
             font-size: 0.875rem;
             color: var(--bg);
+        }
+
+        @media (max-width: 600px) {
+            .website-section .section-title {
+                padding-left: 2.5rem;
+            }
+            .sound-section .section-title {
+                padding-left: 2.5rem;
+            }
+            .graphics-section,
+            .photographics-section,
+            .threed-section {
+                padding: 0 var(--slider-nav-width) !important;
+            }
         }
     </style>
 </head>
@@ -701,7 +700,7 @@
         </section>
 
         <section class="photographics-section">
-            <h2 class="section-title">Photographics</h2>
+            <h2 class="section-title">Photography</h2>
             <div class="photographics-wrapper">
                 <div class="photographics-preview" id="photographics-preview">Preview</div>
                 <div class="photographics-grid" id="photographics-grid"></div>
@@ -824,7 +823,6 @@
             updateSlider();
         }
 
-        // Graphics Grid
         const graphicsGrid = document.getElementById('graphics-grid');
         const graphicsPreview = document.getElementById('graphics-preview');
         
@@ -845,7 +843,6 @@
             graphicsGrid.appendChild(item);
         }
 
-        // 3D Grid
         const threedGrid = document.getElementById('threed-grid');
         const threedPreview = document.getElementById('threed-preview');
         
@@ -866,7 +863,6 @@
             threedGrid.appendChild(item);
         }
 
-        // Photographics Grid
         const photographicsGrid = document.getElementById('photographics-grid');
         const photographicsPreview = document.getElementById('photographics-preview');
         
@@ -887,7 +883,6 @@
             photographicsGrid.appendChild(item);
         }
 
-        // Website Slider
         let currentWebsiteSlide = 0;
         const websiteSlider = document.getElementById('website-slider');
         const websiteSlides = websiteSlider.querySelectorAll('.slide');
@@ -907,7 +902,6 @@
             updateWebsiteSlider();
         }
 
-        // Sound Slider
         let currentSoundSlide = 0;
         const soundSlider = document.getElementById('sound-slider');
         const soundSlides = soundSlider.querySelectorAll('.slide');

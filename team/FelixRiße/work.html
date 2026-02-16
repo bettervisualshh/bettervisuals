@@ -80,24 +80,24 @@
             .theme-toggle svg { width: 0.75rem; height: 0.75rem; }
             .slider-section { margin-top: 0.75rem; margin-bottom: 1rem; }
             .slider-nav svg { width: 0.75rem; height: 0.75rem; }
-            .graphics-section { padding: 0; }
             .section-title { padding-left: 0.5rem; }
             .graphics-wrapper { flex-direction: column; width: 100%; }
             .graphics-preview { width: 100% !important; aspect-ratio: 1; }
             .graphics-grid { width: 100% !important; grid-template-columns: repeat(7, 1fr); }
             .graphic-item { font-size: 0.5rem; }
-            .threed-section { padding: 0; }
             .threed-wrapper { flex-direction: column-reverse; width: 100%; }
             .threed-preview { width: 100% !important; aspect-ratio: 1; }
             .threed-grid { width: 100% !important; grid-template-columns: repeat(7, 1fr); }
             .threed-item { font-size: 0.5rem; }
         }
 
-        /* Slider */
         .slider-section {
             margin-bottom: 2.5rem; opacity: 0; transform: translateY(15px);
             animation: fadeInUp 0.4s ease forwards; animation-delay: 0.05s;
             padding: 0 var(--slider-padding);
+        }
+        .slider-section .section-title {
+            padding-left: calc(var(--slider-nav-width) + var(--slider-gap));
         }
         .slider-wrapper { display: flex; align-items: center; justify-content: center; gap: var(--slider-gap); }
         .slider-container { flex: 1; overflow: hidden; max-width: var(--slider-max-width); margin: 0 auto; }
@@ -119,9 +119,9 @@
         .slider-nav svg { width: 1.25rem; height: 1.25rem; stroke: var(--text); stroke-width: 2.5; fill: none; }
         .slider-nav.prev svg { transform: rotate(180deg); }
 
-        /* Graphics */
         .graphics-section {
-            padding: 0 2.25rem; opacity: 0; transform: translateY(15px);
+            padding: 0 calc(var(--slider-padding) + var(--slider-nav-width) + var(--slider-gap));
+            opacity: 0; transform: translateY(15px);
             animation: fadeInUp 0.4s ease forwards; animation-delay: 0.1s;
         }
         .section-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.25rem; display: inline-block; }
@@ -146,9 +146,9 @@
         .graphic-item.has-image { background-size: cover; background-position: center; }
         .graphic-item.has-image:hover { transform: scale(1.05); z-index: 10; }
 
-        /* 3D */
         .threed-section {
-            padding: 0 2.25rem; margin-top: 2.5rem; padding-bottom: 2rem;
+            padding: 0 calc(var(--slider-padding) + var(--slider-nav-width) + var(--slider-gap));
+            margin-top: 2.5rem; padding-bottom: 2rem;
             opacity: 0; transform: translateY(15px);
             animation: fadeInUp 0.4s ease forwards; animation-delay: 0.15s;
         }
@@ -172,6 +172,16 @@
         [data-theme="dark"] .threed-item:hover { background: rgba(255, 255, 255, 0.1); }
         .threed-item.has-image { background-size: cover; background-position: center; }
         .threed-item.has-image:hover { transform: scale(1.05); z-index: 10; }
+
+        @media (max-width: 600px) {
+            .slider-section .section-title {
+                padding-left: 2.5rem;
+            }
+            .graphics-section,
+            .threed-section {
+                padding: 0 var(--slider-nav-width) !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -203,8 +213,8 @@
             <span class="person-name">Felix Riße</span>
         </nav>
 
-        <!-- SHOWREEL -->
         <section id="showreel" class="slider-section">
+            <h2 class="section-title">Direction, Camera, Editing</h2>
             <div class="slider-wrapper">
                 <button class="slider-nav prev" onclick="prevSlide()" aria-label="Previous">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -215,7 +225,7 @@
                     <div class="slider" id="slider">
                         <div class="slide">
                             <video class="slide-image" autoplay muted loop playsinline>
-                                <source src="../../assets/g52QX1pTNzDq.mp4" type="video/mp4">
+                                <source src="https://client.b4sh0ne.dev/d7h82PHlbettervisuals4U2l4Wnlk/assets/g52QX1pTNzDq.mp4" type="video/mp4">
                             </video>
                         </div>
                         <div class="slide"><div class="slide-image">Image 2</div></div>
@@ -231,7 +241,6 @@
             </div>
         </section>
 
-        <!-- GRAPHICS -->
         <section id="graphics" class="graphics-section">
             <h2 class="section-title">Graphics</h2>
             <div class="graphics-wrapper">
@@ -240,7 +249,6 @@
             </div>
         </section>
 
-        <!-- 3D -->
         <section id="threed" class="threed-section">
             <h2 class="section-title">3D</h2>
             <div class="threed-wrapper">
@@ -267,7 +275,6 @@
         if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
         updateThemeIcon(savedTheme);
 
-        // Slider
         let currentSlide = 0;
         const slider = document.getElementById('slider');
         const totalSlides = slider.querySelectorAll('.slide').length;
@@ -275,7 +282,6 @@
         function nextSlide() { currentSlide = (currentSlide + 1) % totalSlides; updateSlider(); }
         function prevSlide() { currentSlide = (currentSlide - 1 + totalSlides) % totalSlides; updateSlider(); }
 
-        // Graphics Grid
         const graphicsGrid = document.getElementById('graphics-grid');
         const graphicsPreview = document.getElementById('graphics-preview');
         for (let i = 0; i < 49; i++) {
@@ -288,7 +294,6 @@
             graphicsGrid.appendChild(item);
         }
 
-        // 3D Grid
         const threedGrid = document.getElementById('threed-grid');
         const threedPreview = document.getElementById('threed-preview');
         for (let i = 0; i < 49; i++) {

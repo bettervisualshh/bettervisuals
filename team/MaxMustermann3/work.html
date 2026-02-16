@@ -106,6 +106,17 @@
         .slider-nav:hover { opacity: 0.6; }
         .slider-nav svg { width: 1.25rem; height: 1.25rem; stroke: var(--text); stroke-width: 2.5; fill: none; }
         .slider-nav.prev svg { transform: rotate(180deg); }
+
+        .section-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.25rem; display: inline-block; }
+        .slider-section .section-title {
+            padding-left: calc(var(--slider-nav-width) + var(--slider-gap));
+        }
+
+        @media (max-width: 600px) {
+            .slider-section .section-title {
+                padding-left: 2.5rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -137,8 +148,8 @@
             <span class="person-name">Max Mustermann3</span>
         </nav>
 
-        <!-- SHOWREEL -->
         <section id="showreel" class="slider-section">
+            <h2 class="section-title">Animation, Video</h2>
             <div class="slider-wrapper">
                 <button class="slider-nav prev" onclick="prevSlide()" aria-label="Previous">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -179,7 +190,6 @@
         if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
         updateThemeIcon(savedTheme);
 
-        // Slider
         let currentSlide = 0;
         const slider = document.getElementById('slider');
         const totalSlides = slider.querySelectorAll('.slide').length;

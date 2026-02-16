@@ -11,6 +11,9 @@
             --bg: #ffffff;
             --text: #000000;
             --border: #000000;
+            --slider-nav-width: 3rem;
+            --slider-gap: 0.75rem;
+            --slider-padding: 0.75rem;
         }
         
         [data-theme="dark"] {
@@ -59,13 +62,17 @@
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
         @media (max-width: 600px) {
+            :root {
+                --slider-nav-width: 2.13rem;
+                --slider-gap: 0;
+                --slider-padding: 0;
+            }
             html { font-size: 130%; }
             .container { padding: 0; }
             nav { gap: 0.75rem; padding: 1.5rem 0.75rem; }
             nav .back-btn svg { width: 1rem; height: 1rem; }
             .theme-toggle { top: 0.75rem; right: 0.75rem; width: 1rem; height: 1rem; }
             .theme-toggle svg { width: 0.75rem; height: 0.75rem; }
-            .graphics-section { padding: 0; }
             .section-title { padding-left: 0.5rem; }
             .graphics-wrapper { flex-direction: column; width: 100%; }
             .graphics-preview { width: 100% !important; aspect-ratio: 1; }
@@ -76,7 +83,8 @@
         .section-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.25rem; display: inline-block; }
 
         .graphics-section {
-            padding: 0 2.25rem; padding-bottom: 2rem;
+            padding: 0 calc(var(--slider-padding) + var(--slider-nav-width) + var(--slider-gap));
+            padding-bottom: 2rem;
             opacity: 0; transform: translateY(15px);
             animation: fadeInUp 0.4s ease forwards; animation-delay: 0.05s;
         }
@@ -100,6 +108,12 @@
         [data-theme="dark"] .graphic-item:hover { background: rgba(255, 255, 255, 0.1); }
         .graphic-item.has-image { background-size: cover; background-position: center; }
         .graphic-item.has-image:hover { transform: scale(1.05); z-index: 10; }
+
+        @media (max-width: 600px) {
+            .graphics-section {
+                padding: 0 var(--slider-nav-width) !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -131,7 +145,6 @@
             <span class="person-name">Max Mustermann2</span>
         </nav>
 
-        <!-- GRAPHICS -->
         <section id="graphics" class="graphics-section">
             <h2 class="section-title">Graphics</h2>
             <div class="graphics-wrapper">
@@ -158,7 +171,6 @@
         if (savedTheme === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
         updateThemeIcon(savedTheme);
 
-        // Graphics Grid
         const graphicsGrid = document.getElementById('graphics-grid');
         const graphicsPreview = document.getElementById('graphics-preview');
         for (let i = 0; i < 49; i++) {
